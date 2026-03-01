@@ -1,0 +1,9 @@
+// Vite doesn't know what @/ means until we tell it in the config file, but we also need to tell our editor for auto-imports and such. This file does that.
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}

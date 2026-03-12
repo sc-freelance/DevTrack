@@ -10,8 +10,9 @@ function App() {
       <Routes>
         {/* Routes WITH the layout */}
         <Route element={<Layout />}>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
           {/* Every route added here automatically gets the Navbar/Sidebar/Footer */}
         </Route>
       </Routes>

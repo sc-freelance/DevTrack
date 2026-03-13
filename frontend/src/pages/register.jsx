@@ -6,7 +6,6 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // PRACTICE: Use your 'api.js' to POST this data to /register/
-        // HINT: Add a .catch() block to handle "Username already exists" errors
     };
 
     return (

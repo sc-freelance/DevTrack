@@ -5,3 +5,5 @@ const Footer = () => (
         <link src='https://github.com/sc-freelance' placeholder='GitHub Profile'/>
     </footer>
 );
+
+export default Footer;

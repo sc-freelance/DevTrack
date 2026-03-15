@@ -11,7 +11,7 @@ const ProjectTable = ({ projects }) => {
     return (
         <Table>
             <TableHeader>
-                <TableRow> // Add a header row for the table
+                <TableRow> {/* Add a header row for the table */}
                     <TableHead>Project Name</TableHead>
                     <TableHead>Tasks</TableHead>
                     <TableHead>Status</TableHead>

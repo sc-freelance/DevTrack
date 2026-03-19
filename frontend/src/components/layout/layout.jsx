@@ -5,18 +5,18 @@ import Footer from '../footer';
 
 const Layout = () => {
   return (
-    <div className="app-container">
-      <Navbar />
-      <div className="main-content-wrapper" style={{ display: 'flex' }}>
-        <Sidebar />
-        <main className="page-body">
-          {/* This 'Outlet' is where Dashboard.jsx or Register.jsx will render */}
-          <Outlet /> 
+    <div className="flex h-screen w-full bg-gray-50 overflow-hidden">
+      {/* Sidebar - Fixed width */}
+      <Sidebar />
+
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto p-6">
+          <Outlet /> {/* This is where Dashboard.jsx will render */}
         </main>
       </div>
-      <Footer />
     </div>
-  );
-};
+  )
+}
 
 export default Layout;

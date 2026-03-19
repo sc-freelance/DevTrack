@@ -1,38 +1,38 @@
+/* 1. Tailwind v4 Entry Point */
 @import "tailwindcss";
 
-/* 1. Base Layer: Setting the theme */
+/* 2. Theme Configuration (Tailwind v4 Style) */
 @theme {
-  --color-background: #09090b; /* Deep Zinc/Black */
+  --color-background: #09090b; /* Professional Deep Zinc */
   --color-foreground: #fafafa;
-  --color-primary: #3b82f6;    /* Modern Blue */
+  --color-primary: #3b82f6; 
   --color-border: #27272a;
+  
+  /* Adding a surface color for cards/sidebar */
+  --color-surface: #18181b; 
 }
 
-/* 2. Global Resets */
+/* 3. Global Resets & Variables */
 :root {
   font-family: 'Inter', system-ui, sans-serif;
   background-color: var(--color-background);
-  color: white;
+  color: var(--color-foreground);
   color-scheme: dark;
 }
 
+/* 4. Layout Fix */
 body {
   margin: 0;
   padding: 0;
-  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-}
-
-/* 3. Layout Helper - This fixes the "Navigation" floating issue */
-#root {
-  display: flex;
-  flex-direction: column;
+  /* We remove 'display: flex' from body to prevent layout 'squishing'. 
+     The Flexbox should happen inside your Layout.jsx instead! */
   min-height: 100vh;
 }
 
-/* Custom scrollbar for that polished feel */
+/* 5. Custom Scrollbar (The 'SaaS' look) */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
@@ -40,4 +40,7 @@ body {
 ::-webkit-scrollbar-thumb {
   background: var(--color-border);
   border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
 }

@@ -1,37 +1,52 @@
-import { Table, TableBody, TableCell, TableHead, TableRow, TableHeader } from "@/components/ui/table";
+import React from 'react';
+import { 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableHead, 
+  TableHeader, 
+  TableRow 
+} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { useEffect } from 'react';
 
 const ProjectTable = ({ projects }) => {
-    {fetchData && ( // the && operator is used to conditionally render the useEffect hook only if the fetchData function is defined
-        useEffect(() => { // useEffect is used to perform side effects in functional components, such as fetching data from an API
-            fetchData(); // Call the fetchData function when the component mounts
-        }, [fetchData])
-    )}
+  // 1. Handle the "Loading" or "Empty" state
+  if (!projects || projects.length === 0) {
     return (
-        <Table>
-            <TableHeader>
-                <TableRow> {/* Add a header row for the table */}
-                    <TableHead>Project Name</TableHead>
-                    <TableHead>Tasks</TableHead>
-                    <TableHead>Status</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                {projects.map((projects) => ( // Iterate over the projects array and render a table row for each project
-                    <TableRow key={projects.id}>
-                        <TableCell className="font-medium">{projects.title}</TableCell>
-                        <TableCell>{projects.task_count} Tasks </TableCell>
-                        <TableCell>
-                            <Badge variant={projects.status === "Completed" ? "success" : "secondary"}>
-                                {projects.status}
-                            </Badge>
-                        </TableCell>
-                    </TableRow>
-                ))}
-            </TableBody>
-        </Table>
-    )
-}
+      <div className="p-12 text-center border border-dashed border-border rounded-xl bg-surface">
+        <p className="text-zinc-500 font-medium">No projects found. Ready to start a new one?</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="rounded-md border border-border bg-surface">
+      <Table>
+        <TableHeader className="bg-zinc-900/50">
+          <TableRow>
+            <TableHead className="w-[250px]">Project Name</TableHead>
+            <TableHead>Description</TableHead>
+            <TableHead className="text-right">Status</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {projects.map((project) => (
+            <TableRow key={project.id || project.title}>
+              <TableCell className="font-semibold text-foreground">
+                {project.title || project.name}
+              </TableCell>
+              <TableCell className="text-zinc-400 max-w-md truncate">
+                {project.description || "No description provided."}
+              </TableCell>
+              <TableCell className="text-right">
+                <Badge>Active</Badge>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
+  );
+};
 
 export default ProjectTable;

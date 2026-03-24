@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ProjectTable from '@/components/dashboard/projectTable';
-import { projectAPI } from '@/api/projects';
+import { projectAPI } from '@/services/api';
 
 const Dashboard = () => {
     const [projects, setProjects] = useState([]); 

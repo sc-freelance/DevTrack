@@ -1,4 +1,5 @@
-#root {
+/* CSS for the main application container */
+#root { /* This is the main application container */
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;

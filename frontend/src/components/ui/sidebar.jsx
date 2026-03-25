@@ -654,7 +654,7 @@ function SidebarMenuSubButton({
   );
 }
 
-export {
+export{
   Sidebar,
   SidebarContent,
   SidebarFooter,

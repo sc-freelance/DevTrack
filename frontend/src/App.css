@@ -41,3 +41,11 @@
 .read-the-docs {
   color: #888;
 }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--color-surface);
+}

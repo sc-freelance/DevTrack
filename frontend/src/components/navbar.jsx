@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import './index.css';
 
 const Navbar = () => {
   // 1. Simulated Authentication State (for demonstration purposes)

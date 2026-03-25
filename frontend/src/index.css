@@ -1,65 +1,56 @@
-/* 1. Tailwind v4 Entry Point */
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* 2. Theme Configuration (Tailwind v4 Style) */
-@theme {
-  --color-background: #09090b; /* Professional Deep Zinc */
-  --color-foreground: #fafafa;
-  --color-primary: #3b82f6; 
-  --color-border: #27272a;
-  
-  /* Adding a surface color for cards/sidebar */
-  --color-surface: #18181b; 
-}
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --border: 214.3 31.8% 91.4%;
+    --primary: 222.2 47.4% 11.2%;
+  }
 
-/* 3. Global Resets & Variables */
-:root {
-  font-family: 'Inter', system-ui, sans-serif;
-  background-color: var(--color-background);
-  color: var(--color-foreground);
-  color-scheme: dark;
-}
-
-/* 4. Layout Fix */
-body {
-  margin: 0;
-  padding: 0;
-  color: white;
-  -webkit-font-smoothing: antialiased;
-  /* We remove 'display: flex' from body to prevent layout 'squishing'. 
-     The Flexbox should happen inside your Layout.jsx instead! */
-  min-height: 100vh;
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --border: 217.2 32.6% 17.5%;
+    --primary: 210 40% 98%;
+  }
 }
 
-/* 5. Custom Scrollbar (The 'SaaS' look) */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-zinc-950 text-slate-50 min-h-screen;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    text-align: center;
+    font-family:Arial, Helvetica, sans-serif;
+  }
 }
 
-/* DevTrack Title */
-h1 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
+@layer components {
+  .btn {
+    @apply inline-flex items-center px-4 py-2 rounded-lg text-sm font-semibold transition-all;
+  }
+  .btn-primary {
+    @apply bg-blue-600 text-white hover:bg-blue-500;
+  }
 }
 
-/* Sidebar */
-.sidebar {
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
   background-color: var(--color-surface);
-  padding: 1rem;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 250px;
+};
+
+nav a {
+  color: var(--color-on-surface);
+  text-decoration: none;
+  margin-left: 1rem;
 }

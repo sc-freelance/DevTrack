@@ -1,29 +1,24 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Layout from './components/layout/Layout';
-import Dashboard from './components/dashboard/Dashboard';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/home';
+// Import Sidebar and SidebarProvider from your UI folder
+import { Sidebar, SidebarProvider } from "@/components/ui/sidebar";
+import './index.css';
+import './App.css';
 
 function App() {
-  return (
+ return (
     <BrowserRouter>
-      <Routes>
-        {/* 1. PUBLIC ROUTES (No Sidebar/Navbar) */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-
-        {/* 2. PROTECTED/APP ROUTES (With Sidebar & Layout) */}
-        <Route element={<Layout />}>
-          {/* We use 'path="/"' for the Dashboard */}
-          <Route path="/" element={<Dashboard />} />
-          
-          {/* Add more app pages here later, like /profile or /settings */}
-          {/* <Route path="/projects" element={<Projects />} /> */}
-        </Route>
-
-        {/* 3. FALLBACK: If user goes to a random URL, send them home */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <SidebarProvider>
+        <div className="flex min-h-screen w-full border-4 border-red-500">
+          <Sidebar className="border-4 border-green-500"/> 
+          {/* This 'flex-1' tells the main content to take up the remaining space */}
+          <main className="flex-1 border-4 border-blue-500">
+            <Routes>
+              <Route path="/" element={<Home />} />
+            </Routes>
+          </main>
+        </div>
+      </SidebarProvider>
     </BrowserRouter>
   );
 }

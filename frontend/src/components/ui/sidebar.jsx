@@ -25,7 +25,8 @@ export const Sidebar = ({ className }) => {
     <aside className="sidebar">
       <div className="sidebar-title">DevTrack Menu</div>
       <nav className="sidebar-nav">
-        <a href="/" className="sidebar-link">Dashboard</a>
+        <a href="/" className="sidebar-link">Home</a>
+        <a href="/dashboard" className="sidebar-link">Dashboard</a>
         <a href="/projects" className="sidebar-link">Projects</a>
         <a href="/settings" className="sidebar-link">Settings</a>
       </nav>

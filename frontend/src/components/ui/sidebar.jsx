@@ -21,13 +21,13 @@ export function useSidebar() {
 
 // 2. The actual Sidebar component
 export const Sidebar = ({ className }) => {
-  return (
-    <aside className="w-64 min-h-screen bg-slate-900 text-white p-6 border-r border-slate-800">
-      <div className="text-xl font-bold mb-8 text-blue-400">DevTrack Menu</div>
-      <nav className="flex flex-col gap-4">
-        <a href="/" className="hover:text-blue-300 transition-colors">Dashboard</a>
-        <a href="/projects" className="hover:text-blue-300 transition-colors">Projects</a>
-        <a href="/settings" className="hover:text-blue-300 transition-colors">Settings</a>
+  return ( 
+    <aside className="sidebar">
+      <div className="sidebar-title">DevTrack Menu</div>
+      <nav className="sidebar-nav">
+        <a href="/" className="sidebar-link">Dashboard</a>
+        <a href="/projects" className="sidebar-link">Projects</a>
+        <a href="/settings" className="sidebar-link">Settings</a>
       </nav>
     </aside>
   )

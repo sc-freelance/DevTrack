@@ -1,11 +1,16 @@
+from django.utils.text import slugify # Import slugify to create URL-friendly slugs for categories
 from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User # Import User model for authentication
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True) # SlugField is a field that is used to create URL-friendly representations of the category name. It is unique to ensure that each category has a unique URL.
-    
+    slug = models.SlugField(unique=True, blank=True) # SlugField is a field that is used to create URL-friendly representations of the category name. It is unique to ensure that each category has a unique URL.
+
+    def save(self, *args, **kwargs): # *args and **kwargs are used to allow for any number of positional and keyword arguments to be passed to the save method. This is necessary because we are overriding the default save method of the model.
+        if not self.slug:
+            self.slug = slugify(self.name) # Automatically generate a slug from the category name if it doesn't already exist.
+        super().save(*args, **kwargs) # Call the parent save method to save the category to the database.
 
 class Project(models.Model):
     title = models.CharField(max_length=200)

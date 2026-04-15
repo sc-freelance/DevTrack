@@ -1,69 +1,74 @@
 import React, { useEffect, useState } from 'react';
 import ProjectTable from '@/components/dashboard/projectTable';
-import { projectAPI } from '@/services/api';
-import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
+import { projectAPI } from '../../services/api';
 
 const Dashboard = () => {
-    const [projects, setProjects] = React.useState([]); 
+    const [projects, setProjects] = useState([]); 
     const [error, setError] = useState(null);
     const [Loading, setLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState("");
 
-    // useEffect is used to fetch the projects when the component mounts
+    // Filter logic: safety check added (?.) to prevent crashes
+    const filteredProjects = projects.filter((project) => {
+       const title = project.title?.toLowerCase() || "";
+       const desc = project.description?.toLowerCase() || "";
+       const query = searchQuery.toLowerCase();
+       return title.includes(query) || desc.includes(query);
+    });
+
     useEffect(() => {
-        // We define the function inside the effect to keep it self-contained
         const loadDashboard = async () => {
+            console.log("Dashboard: Attempting to fetch projects...");
             try {
                 setLoading(true);
                 const data = await projectAPI.getProjects();
+                console.log("Dashboard: Received data:", data);
                 setProjects(data);
                 setError(null);
-              } catch (err) {
-                // This is where your current error is being caught!
-                setError("Backend server is offline. Please start the backend on port 8000.");
-                console.error("API Error:", err);
-              } finally {
+            } catch (err) {
+                console.error("Dashboard: Fetch error:", err);
+                setError("Connection Refused. Is the Django server running on port 8000?");
+            } finally {
                 setLoading(false);
             }
-          };
-
+        };
         loadDashboard();
     }, []); 
 
-    if (Loading) return <div className="p-8 text-center">Loading projects...</div>;
+    // ONLY ONE RETURN STATEMENT
+    return (
+        <div className="min-h-screen w-full bg-[#0f172a] p-10 text-white">
+          {/* Header Section */}
+          <div className="border-b border-slate-800 pb-6 mb-8">
+            <h1 className="text-4xl font-bold tracking-tight">Project Overview</h1>
+            <p className="text-slate-400 mt-2">Live data from Django Backend</p>
+          </div>
 
-    if (error) return (
-        <div className="p-8 m-4 border border-red-500 bg-red-500/10 text-red-500 rounded-lg">
-          {error}
+          {/* Stats Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
+              <p className="text-slate-500 text-sm font-medium uppercase tracking-wider">Total Projects</p>
+              <p className="text-4xl font-black text-blue-500 mt-1">{projects.length}</p>
+            </div>
+          </div>
+
+          {/* Search & Filter */}
+          <div className="mb-6">
+            <input
+              type="text"
+              placeholder="Filter projects..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full max-w-md bg-slate-900 border border-slate-800 p-4 rounded-xl text-white focus:ring-2 focus:ring-blue-600 outline-none transition-all shadow-inner"
+            />
+          </div>
+
+          {/* Modern Table Container */}
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+            <ProjectTable projects={filteredProjects} />
+          </div>
         </div>
     );
-
-    return (
-    <div className="space-y-6">
-      {/* Header section with proper spacing */}
-      <div className="border-b pb-4">
-        <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
-          Project Overview
-        </h1>
-        <p className="text-xl text-muted-foreground mt-2">
-          Track your development progress in real-time.
-        </p>
-      </div>
-
-      {/* Stats Card */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-xl border bg-card p-6 text-card-foreground shadow">
-          <div className="text-sm font-medium text-muted-foreground">Total Projects</div>
-          <div className="text-2xl font-bold">{projects.length}</div>
-        </div>
-      </div>
-
-      {/* Table Section */}
-      <div className="rounded-xl border bg-card shadow">
-        <ProjectTable projects={projects} />
-      </div>
-    </div>
-  );
-}
+};
 
 export default Dashboard;

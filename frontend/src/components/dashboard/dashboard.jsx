@@ -7,6 +7,9 @@ const Dashboard = () => {
     const [error, setError] = useState(null);
     const [Loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
+    const handleDeleteRefresh = (id) => {
+        setProjects(projects.filter(project => project.id !== id));
+    };
 
     // Filter logic: safety check added (?.) to prevent crashes
     const filteredProjects = projects.filter((project) => {
@@ -66,6 +69,7 @@ const Dashboard = () => {
           {/* Modern Table Container */}
           <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
             <ProjectTable projects={filteredProjects} />
+            <ProjectTable projects={projects} onDelete={handleDeleteRefresh} />
           </div>
         </div>
     );

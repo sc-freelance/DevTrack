@@ -7,6 +7,8 @@ import {
   TableHeader, 
   TableRow 
 } from "@/components/ui/table";
+import { projectAPI } from '../../services/api';
+import DeleteProjectButton from '../deleteProjectButton';
 import { Badge } from "@/components/ui/badge";
 
 const ProjectTable = ({ projects }) => {
@@ -40,6 +42,12 @@ const ProjectTable = ({ projects }) => {
               </TableCell>
               <TableCell className="text-right">
                 <Badge>Active</Badge>
+              </TableCell>
+              <TableCell className="text-right">
+                <DeleteProjectButton 
+                  projectId={project.id} 
+                  onDelete={onDelete} // Pass the prop down directly
+                />
               </TableCell>
             </TableRow>
           ))}

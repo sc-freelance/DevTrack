@@ -39,3 +39,10 @@ class Task(models.Model):
     def __str__(self):
         return f"{self.title} ({self.project.title})"
 
+class Developer(models.Model):
+    user = models.CharField(max_length=100)
+    tasks = models.ManyToManyField(Task, related_name='developers') # ManyToManyField is used to create a many-to-many relationship between developers and tasks. This means that a developer can be assigned to multiple tasks, and a task can have multiple developers assigned to it.
+
+    def __str__(self):
+        return self.user
+

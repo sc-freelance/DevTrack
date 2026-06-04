@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import KanbanBoard from '@/components/dashboard/KanbanBoard';
+import KanbanBoard from './KanbanBoard'; 
 import { projectAPI } from '../../services/api';
 
 const Dashboard = () => {
@@ -20,7 +20,7 @@ const Dashboard = () => {
        return title.includes(query) || desc.includes(query);
     });
 
-    // Dynamic Technical Analysis (Derived Stats for priority 4)
+    // Analytics Metrics (Derived from your project data array)
     const totalProjects = filteredProjects.length;
     const activeProjects = filteredProjects.filter(p => p.status === 'Active' || p.status === 'In Progress').length;
     const completedProjects = filteredProjects.filter(p => p.status === 'Completed').length;
@@ -60,7 +60,7 @@ const Dashboard = () => {
             <p className="text-slate-400 mt-2">Live data from Django Backend</p>
           </div>
 
-          {/* Stats Grid (Priority 4: Real-Time Metrics) */}
+          {/* Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
             <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
               <p className="text-slate-500 text-sm font-medium uppercase tracking-wider">Total Projects</p>
@@ -87,18 +87,10 @@ const Dashboard = () => {
             />
           </div>
 
-          {/* Agile Kanban Layout (Priority 8) */}
-          <div className="mb-12">
+          {/* Agile Kanban Layout */}
+          <div>
             <h2 className="text-xl font-semibold mb-4 text-slate-300">Agile Kanban Board</h2>
             <KanbanBoard projects={filteredProjects} onDelete={handleDeleteRefresh} />
-          </div>
-
-          {/* Management Table Layout */}
-          <div>
-            <h2 className="text-xl font-semibold mb-4 text-slate-300">Data Management View</h2>
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
-              <ProjectTable projects={filteredProjects} onDelete={handleDeleteRefresh} />
-            </div>
           </div>
         </div>
     );

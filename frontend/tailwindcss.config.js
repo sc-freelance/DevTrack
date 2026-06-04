@@ -2,7 +2,7 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}", // This MUST be here to cover your sidebar and pages
+    "./src/**/*.{js,ts,jsx,tsx}", // It tells Tailwind to check ALL subfolders in src
   ],
   theme: {
     extend: {},

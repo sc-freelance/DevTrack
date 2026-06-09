@@ -1,33 +1,41 @@
 import axios from 'axios';
 
-// Use 127.0.0.1 instead of localhost to avoid CORS/DNS issues
-const API_URL = 'http://127.0.0.1:8000/api'; 
+const API_BASE_URL = 'http://localhost:8000/api'; // Adjust this to your backend URL
+
+const api = axios.create({
+    baseURL: API_BASE_URL,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
+// Automatically inject the token into every outgoing API transaction
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`; 
+    }
+    return config;
+});
 
 export const projectAPI = {
+    createProject: async (projectData) => {
+        const response = await api.post('/projects/', projectData);
+        return response.data;
+    },
     getProjects: async () => {
-        try {
-            // the await keyword is used to wait for the axios.get request to complete before proceeding.
-            const response = await axios.get(`${API_URL}/projects/`);
-            return response.data;
-        } catch (error) {
-            console.error("Axios Error Details:", error.response || error.message);
-            throw error;
-        }
+        const response = await api.get('/projects/');
+        return response.data;
+    },
+    getProject: async (id) => {
+        const response = await api.get(`/projects/${id}/`);
+        return response.data;
     },
 
-    deleteProject: async (projectId) => {
-        try {
-            const response = await axios.delete(`${API_URL}/projects/${projectId}/`);
-            return response.data;
-        } catch (error) {
-            // the || operator is used to provide a fallback value in case error.response is undefined. 
-            // If error.response is undefined, it will log error.message instead, which contains a more general description of the error.
-            console.error("Axios Error Details:", error.response || error.message);
-            // the throw statement is used to throw an error if the delete request fails. 
-            // This allows the calling function to catch the error and handle it appropriately, such as displaying an error message to the user.
-            throw error; 
-        }
-    }
+    deleteProject: async (id) => { 
+
+       const response = await axios.delete(`${API_BASE_URL}/projects/${id}/`); 
+       return response.data;
+    },
 };
 
-export default projectAPI;

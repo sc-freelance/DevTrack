@@ -1,28 +1,27 @@
-from django.contrib.auth.models import User # Import User model for authentication
-from django.db.models import Count # Import Count to annotate the number of tasks for each project
-from rest_framework import generics, permissions # Import permissions to set access control
-from .models import Project # Import the Project model
-from .serializers import ProjectSerializer # Fixed mismatch
+from django.contrib.auth.models import User 
+from django.db.models import Count 
+from rest_framework import generics, permissions, viewsets 
+from .models import Project 
+from .serializers import ProjectSerializer 
 
-class ProjectListCreate(generics.ListCreateAPIView):
+# 🌟 Name fixed to match what urls.py expects
+class ProjectListCreateView(generics.ListCreateAPIView):
     serializer_class = ProjectSerializer
-    
-    # For now, let's see ALL projects. 
-    # We will add the "owner" filter once we set up Auth.
-    queryset = Project.objects.annotate(task_count=Count('tasks'))
-    
-    # permissions.AllowAny is in a bracket because permission_classes expects a list or tuple.
     permission_classes = [permissions.AllowAny]
 
-    def perform_create(self, serializer):
-        # For now, we will just save the project without an owner.
-        # In the future, we will set the owner to the authenticated user.
-        serializer.save(owner=self.request.user)
-
-    # We will also want to filter the queryset to only show projects owned by the authenticated user.
     def get_queryset(self):
-        user = self.request.user
-
-        # For now, we will return all projects to test the API.
-        return Project.objects.annotate(task_count=Count('tasks'))    
+        # Annotate so task_count is always available to the serializer
+        return Project.objects.annotate(task_count=Count('tasks'))
     
+    def perform_create(self, serializer):
+        if self.request.user.is_authenticated:
+            serializer.save(owner=self.request.user)
+        else:
+            serializer.save(owner=None) 
+
+# 🌟 Updated this to RetrieveUpdateDestroyAPIView so it handles GET, PUT, and DELETE all in one place!
+class ProjectDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Project.objects.annotate(task_count=Count('tasks'))
+    serializer_class = ProjectSerializer
+    permission_classes = [permissions.AllowAny]
+    lookup_field = 'id' # Tells Django to look for 'id' instead of 'pk' in the URL

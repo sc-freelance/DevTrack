@@ -1,32 +1,50 @@
 import React from 'react';
-import { projectAPI } from '../services/api'; // Import the API functions to interact with the backend 
-// such as deleting a project. Make sure to implement the deleteProject function in your API service.
+import { projectAPI } from '../services/api'; // 👈 Check that this import path matches your directory layout
 
 const DeleteProjectButton = ({ projectId, onDelete }) => {
-    const handleDelete = async () => {
-        if (window.confirm("Are you sure you want to delet this project? This action is irreversible.")) {
-            try { // the try function is used generally for error handling. It allows you to test a block of code for errors while it is being executed.
-                // the await keyword is used to wait for a promise to resolve. 
-                // In this case, it waits for the deleteProject function to complete before moving on to the next line of code.
-                await projectAPI.deleteProject(projectId);
-                onDelete(projectId); // Notify parent component
-            } catch (error) {
-                console.error("Error deleting project:", error);
-                alert("Failed to delete this project. Please try again later.");
-            }
-        }
+  
+  const handleDelete = async () => {
+    console.log("Attempting to delete project with ID:", projectId);
+    if (window.confirm("Are you sure you want to permanently delete this item?")) {
+      try {
+        // Call the newly added API function
+        await projectAPI.deleteProject(projectId);
+        
+        // Notify Dashboard.jsx to filter the removed item out of state memory
+        onDelete(projectId);
+      } catch (error) {
+        console.error("Error deleting project:", error);
+        alert("Failed to delete project. Check server console logs.");
+      }
     }
+  };
 
-    return (
-        <button
-            onClick={handleDelete}
-            // px is padding on the x-axis and likewise for py. bg-red-600 is a red background color, and hover:bg-red-700 makes it darker on hover. 
-            // transition-colors and duration-300 make the color change smoothly over 300 milliseconds.
-            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors duration-300"
-        >
-            Delete Project
-        </button>
-    )
-}
+  return (
+    <button 
+      onClick={handleDelete}
+      style={{
+        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+        color: '#f87171',
+        border: '1px solid rgba(239, 68, 68, 0.2)',
+        padding: '0.375rem 0.75rem',
+        borderRadius: '0.375rem',
+        fontSize: '0.75rem',
+        fontWeight: '500',
+        cursor: 'pointer',
+        transition: 'all 0.15s ease'
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.backgroundColor = '#ef4444';
+        e.currentTarget.style.color = '#ffffff';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
+        e.currentTarget.style.color = '#f87171';
+      }}
+    >
+      Delete Task
+    </button>
+  );
+};
 
 export default DeleteProjectButton;

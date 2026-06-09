@@ -9,7 +9,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     # Ensure that the combination of 'name' and 'owner' is unique
     class Meta:
         model = Project
-        fields = ['id', 'title', 'description', 'created_at', 'task_count']
+        fields = ['id', 'title', 'description', 'status', 'created_at', 'task_count']
         validators = [
             UniqueTogetherValidator(
                 queryset=Project.objects.all(),

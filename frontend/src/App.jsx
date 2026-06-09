@@ -1,53 +1,49 @@
+// src/App.jsx
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Home from './pages/home';
-import Dashboard from './components/dashboard/dashboard.jsx';
-import Login from './pages/login';
-import Register from './pages/register';
-import Categories from './pages/categories';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import Sidebar from './components/ui/sidebar';
+import Dashboard from './components/dashboard/dashboard';
 import Settings from './pages/settings';
-import { Sidebar, SidebarProvider } from "@/components/ui/sidebar";
-import Navbar from './components/navbar';
-import './index.css';
-import './App.css';
+import Login from './pages/login';
 
-function App() {
+// This is an inner component that handles layout and hooks safely
+const MainAppContent = () => {
+  const location = useLocation(); // It is safe to call here because it runs inside the <Router> grid!
+  
+  // Hiding the sidebar completely if the current active URL path is exactly '/login'
+  const showSidebar = location.pathname !== '/login';
+
   return (
-    <BrowserRouter>
-      <Navbar />
-      <SidebarProvider>
-        <div className="flex w-full h-screen overflow-hidden">
-          {/* Sidebar - ensures it doesn't shrink */}
-          <div className="flex-shrink-0 border-r border-slate-800">
-            <Sidebar /> 
-          </div>
-          <main className="flex-1 overflow-y-auto">
-            <Routes>
-              {/* Redirect root to dashboard for testing */}
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
-              
-              <Route path="/dashboard" element={<Dashboard />} />
-              
-              {/* Placeholder Routes */}
-              <Route path="/projects" element={<div className="p-10 text-white">Projects Content</div>} />
-              <Route path="/categories" element={<Categories />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              
-              {/* 404 Guard */}
-              <Route path="*" element={
-                <div className="flex h-full items-center justify-center text-slate-500">
-                  Page Not Found
-                </div>
-              } />
-            </Routes>
-          </main>
-          
-        </div>
-      </SidebarProvider>
-    </BrowserRouter>
+    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#0f172a', width: '100%' }}>
+      
+      {/* Conditionally render your navigation sidebar layout panel */}
+      {showSidebar && <Sidebar />}
+
+      {/* Main viewport area changes dynamically depending on the route path */}
+      <div style={{ flexGrow: 1, width: '100%' }}>
+        <Routes>
+          {/* Main workspace page paths */}
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/login" element={<Login />} />
+
+          {/* Safe fallback router path */}
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
+      </div>
+
+    </div>
   );
-}
+};
+
+// Keep the main App export simple—just wrapping everything inside the Router provider
+const App = () => {
+  return (
+    <Router>
+      <MainAppContent />
+    </Router>
+  );
+};
 
 export default App;

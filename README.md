@@ -1,79 +1,95 @@
 # DevTrack
 
-DevTrack is a robust, lightweight project management application built to streamline engineering workflows. Designed with a focus on real-time agility and scalable data structures, the platform features a dynamic task board, advanced multi-parameter filtering, and an adaptable data engine.
+A full-stack project tracking app with a Kanban-style dashboard, built with **React (Vite)** on the front end and a **Django REST Framework** API on the back end.
 
----
+I built DevTrack to practise designing a REST API from scratch, modelling relational data in Django, and connecting it to a modern React front end.
 
-## 🚀 Key Features & Architecture
+## Features
 
-### 📊 Dynamic Project Boards
-*   **Asynchronous Board Engine:** Built using React and Node.js backend concepts to handle state transitions dynamically across customizable workflow stages (e.g., To Do, In Progress, QA, Complete).
-*   **Optimistic UI Layer:** Front-end state updates instantly upon user interaction with fallback state rollbacks if server validation or network requests fail.
+- **Kanban dashboard** – projects are grouped into *To Do*, *In Progress* and *Completed* columns based on their status.
+- **Create and delete projects** – a modal form sends new projects to the API, with a starting status column; projects can be deleted from the board.
+- **Live project stats** – the API annotates each project with a `task_count` using Django ORM aggregation (`Count`), and the dashboard shows totals per status.
+- **Search** – filter projects on the dashboard as you type.
+- **Validation** – the serializer rejects duplicate project titles with a clear error message.
+- **Multi-page navigation** – React Router with a sidebar layout, plus dashboard, settings and login pages.
 
-### 🗄️ Relational Data & Adaptable Schema
-*   **Django REST Framework Backend:** Powered by Python and DRF to provide structured, secure JSON payloads via clear serialization layers.
-*   **Entity-Attribute-Value (EAV) Engine:** Engineered using an EAV pattern over a relational SQLite database. This allows users to generate custom fields (e.g., Bug Severity, Branch ID, Budget) dynamically without requiring structural migrations to the underlying database tables.
-*   **Data Integrity & Validation:** Built using strict data type validation to filter and clean messy inputs at the API gateway prior to database commit.
+## Tech stack
 
-### 🔍 Advanced Filter Logic
-*   **Dynamic Combination Queries:** Implements optimized Python backend filtering utilizing Django `Q` objects to parse complex, multi-parameter searches (e.g., tracking specific assignees, urgency metrics, and tags concurrently).
+| Layer | Tools |
+| --- | --- |
+| Front end | React 19, Vite, React Router, Axios, Tailwind CSS, shadcn/ui components |
+| Back end | Python, Django, Django REST Framework, django-cors-headers |
+| Database | SQLite |
 
----
+## API endpoints
 
-## 🛠️ Tech Stack
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| GET | `/api/projects/` | List all projects (with task counts) |
+| POST | `/api/projects/` | Create a project |
+| GET | `/api/projects/<id>/` | Get a single project |
+| PUT / PATCH | `/api/projects/<id>/` | Update a project |
+| DELETE | `/api/projects/<id>/` | Delete a project |
 
-*   **Frontend:** React (Vite), JavaScript, Tailwind CSS
-*   **Backend:** Python, Django REST Framework (DRF)
-*   **Database:** SQLite (Relational Schema)
-*   **Version Control:** Git, GitHub
+## Data model
 
----
+- **Project** – title, description, status, created date, optional owner
+- **Task** – belongs to a project; has a priority (Low / Medium / High), owner and optional category
+- **Category** – name with an auto-generated URL slug
+- **Developer** – links users to the tasks they're assigned
 
-## 📂 Project Structure
+## Project structure
 
 ```text
-├── backend/               # Django REST Framework Application
-│   ├── api/               # API endpoints, views, and serializers
-│   ├── models/            # Relational database models (Core & EAV)
-│   └── manage.py          # Django management script
-└── frontend/              # React Vite Application
-    ├── src/
-    │   ├── components/    # Reusable UI components (Boards, Cards, Forms)
-    │   ├── hooks/         # Custom React hooks for optimistic state logic
-    │   └── App.jsx        # Main application routing and core state
+DevTrack/
+├── backend/
+│   ├── config/        # Django settings and root URLs
+│   ├── projects/      # Models, serializers, views and URLs for the API
+│   ├── core/          # Health-check view and tests
+│   └── manage.py
+└── frontend/
+    └── src/
+        ├── components/  # Dashboard, Kanban board, modals, layout, UI components
+        ├── pages/       # Login, settings, categories
+        ├── services/    # Axios API client
+        └── App.jsx      # Routing
 ```
 
+## Running locally
 
-## 1. Backend Setup (Django)
-Navigate to the backend directory, initialize a virtual environment, and install dependencies:
+**Back end** (http://127.0.0.1:8000)
 
-```Bash
+```bash
 cd backend
 python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-## Run database migrations and start the development server:
-
-```Bash
+source venv/bin/activate        # Windows: venv\Scripts\activate
+pip install django djangorestframework django-cors-headers
 python manage.py migrate
 python manage.py runserver
 ```
 
-The backend API will run at http://127.0.0.1:8000/.
+**Front end** (http://localhost:5173)
 
-## 2. Frontend Setup (React)
-Navigate to the frontend directory, install dependencies, and start the development server:
-
-```Bash
-cd ../frontend
+```bash
+cd frontend
 npm install
 npm run dev
 ```
-The frontend application will run at http://localhost:5173/.
 
-## 🐙 Git Workflow & Sustainable Development
-* This repository follows standard professional engineering practices:
-* Feature Branching: Main branches are kept clean; features are developed on isolated branches (e.g., feature/eav-custom-fields) before undergoing testing and merging.
-* Technical Debt Minimization: Code is written cleanly with a focus on modularity, readability, and extensive documentation to ensure sustainable future development.
+## Current status and roadmap
+
+DevTrack is a work in progress. Next steps:
+
+- [ ] Task endpoints (the `Task` model exists; the API currently covers projects)
+- [ ] Moving projects between columns from the board (the API already supports updates)
+- [ ] Authentication – the login page is UI only so far
+- [ ] Categories page and rich-text descriptions (Tiptap editor started)
+- [ ] Expand the test suite and add a `requirements.txt`
+- [ ] Move `SECRET_KEY` and `DEBUG` into environment variables
+
+## What I learned
+
+- Designing REST endpoints with DRF generic views (`ListCreateAPIView`, `RetrieveUpdateDestroyAPIView`)
+- Using ORM aggregation (`annotate` + `Count`) to send computed data to the front end
+- Evolving a schema safely through Django migrations
+- Structuring a React app with routing, reusable components and a central API client

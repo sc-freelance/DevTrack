@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import *, Project
+from projects.models import Project
 
 # Create your tests here.
 class ProjectModelTest(TestCase):

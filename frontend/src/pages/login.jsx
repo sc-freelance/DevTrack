@@ -66,7 +66,26 @@ const Login = () => {
             />
           </div>
 
-          {/* 🛠️ YOUR TURN: Add the Password field stack below following the pattern above! */}
+          {/* Password input field wrapper */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            <label style={{ color: '#cbd5e1', fontSize: '0.875rem', fontWeight: '500' }}>Password</label>
+            <input 
+              type="password" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+              style={{
+                backgroundColor: '#070a12',
+                border: '1px solid #334155',
+                borderRadius: '0.5rem',
+                padding: '0.75rem 1rem',
+                color: '#ffffff',
+                outline: 'none',
+                fontSize: '0.9rem',
+                transition: 'border-color 0.15s'
+              }}
+            />
+          </div>
 
 
           {/* Utility Row: Remembers checkbox and password retrieval link */}

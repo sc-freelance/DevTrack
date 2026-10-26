@@ -14,7 +14,7 @@ class ProjectSerializer(serializers.ModelSerializer):
             UniqueTogetherValidator(
                 queryset=Project.objects.all(),
                 fields=['title'],
-                message="A project with this name already exists for this owner."
+                message="A project with this title already exists."
             )
         ]
 

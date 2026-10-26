@@ -28,7 +28,7 @@ const CreateTaskModal = ({ isOpen, onClose, onTaskCreated }) => {
             onClose();
         } catch (error) {
             console.error("Error creating project:", error);
-            alert("Failed to create project. Please try again.");
+            alert(error.response?.data?.non_field_errors?.[0] || "Failed to create project. Please try again.");
         } finally { // the finally block is used to ensure that setSubmitting(false) is called regardless of whether the try block succeeds or if an error is caught in the catch block. This is important to reset the submitting state and allow the user to attempt to submit again if there was an error.
             setSubmitting(false);
         }

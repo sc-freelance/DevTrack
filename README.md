@@ -17,7 +17,7 @@ I built DevTrack to practise designing a REST API from scratch, modelling relati
 
 | Layer | Tools |
 | --- | --- |
-| Front end | React 19, Vite, React Router, Axios, Tailwind CSS, shadcn/ui components |
+| Front end | React 19, Vite, React Router, Axios, custom CSS (Tailwind CSS and shadcn/ui are installed but not yet wired in) |
 | Back end | Python, Django, Django REST Framework, django-cors-headers |
 | Database | SQLite |
 
@@ -45,7 +45,7 @@ DevTrack/
 ├── backend/
 │   ├── config/        # Django settings and root URLs
 │   ├── projects/      # Models, serializers, views and URLs for the API
-│   ├── core/          # Health-check view and tests
+│   ├── core/          # Health-check view (not yet routed) and model tests
 │   └── manage.py
 └── frontend/
     └── src/

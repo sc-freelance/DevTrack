@@ -13,6 +13,11 @@ body {
   box-sizing: border-box;
 }
 
+/* Page padding (used by the dashboard wrapper) */
+.p-10 {
+  padding: 2.5rem;
+}
+
 /* Header border */
 .border-b {
   border-bottom: 1px solid #1e293b;
@@ -362,6 +367,7 @@ input[type="text"]:focus {
 
 .modal-form input, .modal-form textarea, .modal-form select {
   background-color: #0b1329; border: 1px solid #334155; padding: 0.65rem; border-radius: 0.5rem; color: white; outline: none;
+  box-sizing: border-box; width: 100%; font-family: inherit;
 }
 .modal-form input:focus { border-color: #3b82f6; }
 

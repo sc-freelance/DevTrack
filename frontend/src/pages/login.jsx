@@ -47,8 +47,8 @@ const Login = () => {
           
           {/* Email input field wrapper */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            <label style={{ color: '#cbd5e1', fontSize: '0.875rem', fontWeight: '500' }}>Email Address</label>
-            <input 
+            <label style={{ color: '#cbd5e1', fontSize: '0.875rem', fontWeight: '500' }} htmlFor="login-email">Email Address</label>
+            <input id="login-email" autoComplete="email"
               type="email" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -68,8 +68,8 @@ const Login = () => {
 
           {/* Password input field wrapper */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            <label style={{ color: '#cbd5e1', fontSize: '0.875rem', fontWeight: '500' }}>Password</label>
-            <input 
+            <label style={{ color: '#cbd5e1', fontSize: '0.875rem', fontWeight: '500' }} htmlFor="login-password">Password</label>
+            <input id="login-password" autoComplete="current-password"
               type="password" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}

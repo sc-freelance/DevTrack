@@ -93,7 +93,7 @@ const KanbanBoard = ({ projects = [], onDelete }) => {
                       <span style={{ fontSize: '0.75rem', backgroundColor: '#1e293b', color: '#cbd5e1', padding: '0.125rem 0.5rem', borderRadius: '0.25rem', border: '1px solid #334155' }}>
                         {getDisplayStatus(project.status)}
                       </span>
-                      <DeleteProjectButton projectId={project.id} onDelete={onDelete} />
+                      <DeleteProjectButton projectId={project.id} projectTitle={project.title} onDelete={onDelete} />
                     </div>
                   </div>
                 ))

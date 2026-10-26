@@ -23,3 +23,10 @@ class ProjectModelTest(TestCase):
     def test_string_representation(self):
         # Test that the __str__ method returns the title
         self.assertEqual(str(self.project), "DevTrack")
+
+class HealthCheckTest(TestCase):
+    def test_health_endpoint(self):
+        # The API should report that it is up
+        response = self.client.get('/api/health/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"status": "ok"})

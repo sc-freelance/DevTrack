@@ -35,17 +35,17 @@ const CreateTaskModal = ({ isOpen, onClose, onTaskCreated }) => {
 };
 
 return (
-    <div className="modal-overlay">
+    <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="create-project-heading">
         <div className="modal-container">
             <div className="modal-header">
-                <h3>Create New Project Task</h3>
-                <button onClick={onClose} className="close-x-btn">&times;</button>
+                <h3 id="create-project-heading">Create New Project Task</h3>
+                <button onClick={onClose} className="close-x-btn" aria-label="Close dialog">&times;</button>
             </div>
 
             <form onSubmit={handleSubmit} className="modal-form">
                 <div className="form-group">
-                    <label>Project Title</label>
-                    <input 
+                    <label htmlFor="project-title">Project Title</label>
+                    <input id="project-title"
                       type="text" 
                       value={title} 
                       onChange={(e) => setTitle(e.target.value)} 
@@ -55,8 +55,8 @@ return (
                 </div>
 
                 <div className="form-group">
-                    <label>Description</label>
-                    <textarea
+                    <label htmlFor="project-description">Description</label>
+                    <textarea id="project-description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="Provide a brief summary of the requirements..."
@@ -65,8 +65,8 @@ return (
                 </div>
 
                 <div className="form-group">
-                    <label>Initial Status Column</label>
-                    <select value={status} onChange={(e) => setStatus(e.target.value)}>
+                    <label htmlFor="project-status">Initial Status Column</label>
+                    <select id="project-status" value={status} onChange={(e) => setStatus(e.target.value)}>
                         <option value="to_do">To Do</option>
                         <option value="in_progress">In Progress</option>
                         <option value="done">Done</option>

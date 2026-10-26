@@ -1,6 +1,6 @@
 from django.urls import path
+from .views import health
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('projects.urls')), # This adds the "api/" prefix
+    path('health/', health, name='health'),  # GET /api/health/ - quick "is the API up?" check
 ]

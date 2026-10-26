@@ -1,7 +1,7 @@
 import React from 'react';
 import { projectAPI } from '../services/api'; // 👈 Check that this import path matches your directory layout
 
-const DeleteProjectButton = ({ projectId, onDelete }) => {
+const DeleteProjectButton = ({ projectId, projectTitle, onDelete }) => {
   
   const handleDelete = async () => {
     console.log("Attempting to delete project with ID:", projectId);
@@ -22,6 +22,7 @@ const DeleteProjectButton = ({ projectId, onDelete }) => {
   return (
     <button 
       onClick={handleDelete}
+      aria-label={projectTitle ? `Delete ${projectTitle}` : 'Delete project'}
       style={{
         backgroundColor: 'rgba(239, 68, 68, 0.1)',
         color: '#f87171',

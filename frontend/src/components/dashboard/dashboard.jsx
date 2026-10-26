@@ -98,6 +98,7 @@ const Dashboard = () => {
             <input
               type="text"
               placeholder="Filter workspace items..."
+              aria-label="Search projects"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full max-w-md bg-slate-900 border border-slate-800 p-4 rounded-xl text-white focus:ring-2 focus:ring-blue-600 outline-none transition-all shadow-inner"

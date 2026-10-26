@@ -40,16 +40,16 @@ const SettingsPanel = () => {
             <h2 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1.5rem', color: '#f4f4f5' }}>Profile Preferences</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                <label style={{ fontSize: '0.875rem', color: '#94a3b8', fontWeight: '500' }}>Username / Scope Display</label>
-                <input 
+                <label style={{ fontSize: '0.875rem', color: '#94a3b8', fontWeight: '500' }} htmlFor="settings-username">Username / Scope Display</label>
+                <input id="settings-username" 
                   type="text" 
                   placeholder="Enter workspace handle..."
                   style={{ backgroundColor: '#0b0f19', border: '1px solid #334155', borderRadius: '0.5rem', padding: '0.75rem 1rem', color: '#ffffff', outline: 'none', width: '100%', maxWidth: '400px', fontSize: '0.9rem' }}
                 />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                <label style={{ fontSize: '0.875rem', color: '#94a3b8', fontWeight: '500' }}>Bio Details</label>
-                <textarea 
+                <label style={{ fontSize: '0.875rem', color: '#94a3b8', fontWeight: '500' }} htmlFor="settings-bio">Bio Details</label>
+                <textarea id="settings-bio" 
                   rows="3"
                   placeholder="Describe your workspace responsibilities..."
                   style={{ backgroundColor: '#0b0f19', border: '1px solid #334155', borderRadius: '0.5rem', padding: '0.75rem 1rem', color: '#ffffff', outline: 'none', width: '100%', maxWidth: '500px', fontSize: '0.9rem', resize: 'vertical' }}
@@ -88,8 +88,8 @@ const SettingsPanel = () => {
             <h2 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1.5rem', color: '#f4f4f5' }}>Appearance Configurations</h2>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', minWidth: '200px' }}>
-                <label style={{ fontSize: '0.875rem', color: '#94a3b8', fontWeight: '500' }}>Interface Theme</label>
-                <select style={{ backgroundColor: '#0b0f19', border: '1px solid #334155', borderRadius: '0.5rem', padding: '0.75rem 1rem', color: '#ffffff', outline: 'none', cursor: 'pointer', fontSize: '0.9rem' }}>
+                <label style={{ fontSize: '0.875rem', color: '#94a3b8', fontWeight: '500' }} htmlFor="settings-theme">Interface Theme</label>
+                <select id="settings-theme" style={{ backgroundColor: '#0b0f19', border: '1px solid #334155', borderRadius: '0.5rem', padding: '0.75rem 1rem', color: '#ffffff', outline: 'none', cursor: 'pointer', fontSize: '0.9rem' }}>
                   <option value="dark">Dark Slate Matrix</option>
                   <option value="light">High Contrast Light</option>
                   <option value="system">Follow System Defaults</option>
@@ -97,8 +97,8 @@ const SettingsPanel = () => {
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', minWidth: '200px' }}>
-                <label style={{ fontSize: '0.875rem', color: '#94a3b8', fontWeight: '500' }}>Language Profile</label>
-                <select style={{ backgroundColor: '#0b0f19', border: '1px solid #334155', borderRadius: '0.5rem', padding: '0.75rem 1rem', color: '#ffffff', outline: 'none', cursor: 'pointer', fontSize: '0.9rem' }}>
+                <label style={{ fontSize: '0.875rem', color: '#94a3b8', fontWeight: '500' }} htmlFor="settings-language">Language Profile</label>
+                <select id="settings-language" style={{ backgroundColor: '#0b0f19', border: '1px solid #334155', borderRadius: '0.5rem', padding: '0.75rem 1rem', color: '#ffffff', outline: 'none', cursor: 'pointer', fontSize: '0.9rem' }}>
                   <option value="en">English (US / UK)</option>
                   <option value="es">Español</option>
                   <option value="fr">Français</option>
